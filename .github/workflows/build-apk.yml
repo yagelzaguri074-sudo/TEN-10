@@ -1,5 +1,4 @@
 name: Build Android APK
-
 on:
   workflow_dispatch:
 
@@ -18,8 +17,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      # שלב קריטי: הגדרת אקספו ופרופיל הבנייה
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }} # אופציונלי, אבל מומלץ אם יש בעיות
+
+      # יצירת התיקיות הילידיות (android ו-ios)
       - name: Expo Prebuild
-        run: npx expo prebuild --platform android
+        run: npx expo prebuild --platform android --clean
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -27,6 +35,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      # שימוש בפקודות הבנייה המתקדמות כדי להעלים את מסך הפיתוח
       - name: Build Android APK
         run: |
           cd android
@@ -36,5 +45,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: app-release
           path: android/app/build/outputs/apk/release/app-release-unsigned.apk
