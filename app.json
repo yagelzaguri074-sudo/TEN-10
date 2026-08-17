@@ -1,0 +1,80 @@
+{
+  "expo": {
+    "name": "TEN 10",
+    "slug": "my-fitness-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#080B10"
+    },
+    "plugins": [
+      "expo-notifications",
+      "expo-dev-client",
+      [
+        "expo-navigation-bar",
+        {
+          "visibility": "hidden",
+          "position": "absolute",
+          "behavior": "overlay-swipe",
+          "backgroundColor": "#080B10",
+          "barStyle": "light",
+          "legacyVisible": "sticky-immersive"
+        }
+      ]
+    ],
+    "androidStatusBar": {
+      "hidden": true,
+      "translucent": true,
+      "barStyle": "light-content"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "userInterfaceStyle": "dark",
+      "infoPlist": {
+        "UIStatusBarHidden": true,
+        "UIViewControllerBasedStatusBarAppearance": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#080B10"
+      },
+      "package": "com.yagel34.myfitnessapp",
+      "permissions": [
+        "VIBRATE",
+        "POST_NOTIFICATIONS"
+      ]
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/icon.png",
+      "name": "TEN 10",
+      "shortName": "TEN 10",
+      "description": "עשר דקות ביום",
+      "lang": "he",
+      "dir": "rtl",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "./",
+      "themeColor": "#080B10",
+      "backgroundColor": "#080B10",
+      "barStyle": "black-translucent",
+      "splash": {
+        "image": "./assets/splash-icon.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#080B10"
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fb5aac4c-c8c9-425e-b431-22863060b1d1"
+      }
+    }
+  }
+}

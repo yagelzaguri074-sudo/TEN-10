@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- viewport-fit=cover is what lets Safari report the notch and the
+         home-indicator strip through env(safe-area-inset-*); without it
+         react-native-safe-area-context reads zero on every side and the
+         tab bar sits under the home indicator. The locked scale stops
+         the pinch and double-tap zoom that would otherwise let you drag
+         a fixed app layout half off the screen. -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, shrink-to-fit=no, viewport-fit=cover, interactive-widget=resizes-content"
+    />
+
+    <!-- Added to the home screen, this opens without Safari's chrome. -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TEN 10" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#080b10" />
+    <!-- Expo always emits this icon; pointing Safari at a file that
+         actually exists avoids a blank home-screen tile. -->
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+
+    <title>TEN 10</title>
+
+    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
+    <style id="expo-reset">
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
+        display: flex;
+        height: 100%;
+        width: 100%;
+        flex: 1;
+      }
+    </style>
+
+    <style id="ios-safari">
+      /* Safari's address bar collapses as you scroll, and 100% (or 100vh)
+         measures the tall state, so the bottom of the app — the tab bar —
+         spends its life hidden behind the toolbar. 100dvh tracks the
+         viewport as it actually is. The 100% above stays as the fallback
+         for anything that doesn't know dvh. */
+      @supports (height: 100dvh) {
+        html,
+        body,
+        #root {
+          height: 100dvh;
+          min-height: 100dvh;
+        }
+      }
+
+      /* iOS 15 understands fill-available before it understands dvh.
+         It tracks the visible Safari viewport instead of putting the
+         bottom tabs beneath the browser toolbar. */
+      @supports (-webkit-touch-callout: none) and (not (height: 100dvh)) {
+        html {
+          height: -webkit-fill-available;
+        }
+
+        body,
+        #root {
+          min-height: -webkit-fill-available;
+        }
+      }
+
+      html {
+        background-color: #080b10;
+        color-scheme: dark;
+        /* Safari enlarges text in portrait on its own initiative */
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        background-color: #080b10;
+        margin: 0;
+        /* the page itself never scrolls; every scrolling surface is a
+           ScrollView inside the app, so kill the rubber-band bounce that
+           would otherwise drag the whole UI away from the top edge */
+        overscroll-behavior: none;
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        padding: 0;
+        /* no grey flash on tap, no 300ms wait for a second tap, no text
+           selection or magnifier on a long press — three things that give
+           a web build away instantly on iOS */
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+      }
+
+      #root {
+        min-width: 0;
+        min-height: 0;
+        isolation: isolate;
+        /* Prevent horizontal page drift from animated native-web views. */
+        overflow: hidden;
+      }
+
+      /* Keep fields editable even though the surrounding app shell
+         suppresses selection and long-press callouts. */
+      input,
+      textarea,
+      [contenteditable='true'] {
+        -webkit-user-select: text;
+        user-select: text;
+        -webkit-touch-callout: default;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+  </body>
+</html>
